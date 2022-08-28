@@ -285,6 +285,30 @@ files:
     if __name__ == '__main__':
         CoffeeMachineTest('machine.coffee_machine').run_tests()
   learner_created: false
-feedback_link: https://hyperskill.org/projects/68/stages/369/implement#comment
-status: Unchecked
-record: -1
+- name: machine/constants.py
+  visible: true
+  learner_created: true
+- name: machine/money.py
+  visible: true
+  learner_created: true
+- name: machine/coffee.py
+  visible: true
+  learner_created: true
+- name: machine/buy_utils.py
+  visible: true
+  learner_created: true
+- name: machine/take_utils.py
+  visible: true
+  learner_created: true
+- name: machine/common_utils.py
+  visible: true
+  learner_created: true
+- name: machine/fill_utils.py
+  visible: true
+  learner_created: true
+feedback_link: https://hyperskill.org/learn/step/5793#comment
+status: Solved
+feedback:
+  message: Congratulations!
+  time: Sun, 28 Aug 2022 11:38:44 UTC
+record: 4

@@ -252,6 +252,110 @@ files:
     if __name__ == '__main__':
         CoffeeMachineTest('machine.coffee_machine').run_tests()
   learner_created: false
-feedback_link: https://hyperskill.org/projects/68/stages/370/implement#comment
+- name: machine/fill_utils.py
+  visible: true
+  text: |-
+    def execute_fill(available_ingredients):
+        available_ingredients['water'] += int(input('Write how many ml of water you want to add:\n'))
+        available_ingredients['milk'] += int(input('Write how many ml of milk you want to add:\n'))
+        available_ingredients['coffee_beans'] += int(input('Write how many grams of coffee beans you want to add:\n'))
+        available_ingredients['disposable_cups'] += int(input('Write how many disposable cups you want to add:\n'))
+  learner_created: true
+- name: machine/coffee.py
+  visible: true
+  text: |
+    class Coffee:
+        disposable_cups = 1
+
+        def __init__(self, coffee_id: int, water: int, milk: int, coffee_beans: int, price: int):
+            self.coffee_id: int = coffee_id
+            self.water: int = water
+            self.milk: int = milk
+            self.coffee_beans: int = coffee_beans
+            self.price: int = price
+  learner_created: true
+- name: machine/money.py
+  visible: true
+  text: |
+    class MoneyBalance:
+        def __init__(self, balance: int):
+            self.balance: int = balance
+  learner_created: true
+- name: machine/buy_utils.py
+  visible: true
+  text: |
+    from constants import COFFEE_DICT
+    from money import MoneyBalance
+    from coffee import Coffee
+
+
+    def spend_ingredients(available_ingredients: dict, ordered_coffee: Coffee):
+        available_ingredients['water'] -= ordered_coffee.water
+        available_ingredients['milk'] -= ordered_coffee.milk
+        available_ingredients['coffee_beans'] -= ordered_coffee.coffee_beans
+        available_ingredients['disposable_cups'] -= ordered_coffee.disposable_cups
+
+
+    def get_money(money_balance: MoneyBalance, ordered_coffee: Coffee):
+        money_balance.balance += ordered_coffee.price
+
+
+    def execute_buy(available_ingredients: dict, money_balance: MoneyBalance):
+        coffee_kind_number: str = input('What do you want to buy? 1 - espresso, 2 - latte, 3 - cappuccino:\n')
+        ordered_coffee: Coffee = COFFEE_DICT[coffee_kind_number]
+        spend_ingredients(available_ingredients, ordered_coffee)
+        get_money(money_balance, ordered_coffee)
+  learner_created: true
+- name: machine/take_utils.py
+  visible: true
+  text: |-
+    from money import MoneyBalance
+
+
+    def execute_take(money_balance: MoneyBalance):
+        print(f'I gave you ${money_balance.balance}\n')
+        money_balance.balance = 0
+  learner_created: true
+- name: machine/constants.py
+  visible: true
+  text: |
+    from coffee import Coffee
+
+    espresso: Coffee = Coffee(1, 250, 0, 16, 4)
+    latte: Coffee = Coffee(2, 350, 75, 20, 7)
+    cappuccino: Coffee = Coffee(3, 200, 100, 12, 6)
+
+    COFFEE_DICT = {'1': espresso,
+                   '2': latte,
+                   '3': cappuccino}
+  learner_created: true
+- name: machine/common_utils.py
+  visible: true
+  text: |
+    from money import MoneyBalance
+
+
+    def print_state(available_ingredients, money):
+        print(f'''The coffee machine has:
+    {available_ingredients['water']} ml of water
+    {available_ingredients['milk']} ml of milk
+    {available_ingredients['coffee_beans']} g of coffee beans
+    {available_ingredients['disposable_cups']} disposable cups
+    ${money.balance} of money\n''')
+
+
+    def get_action():
+        return input('Write action (buy, fill, take):\n')
+
+
+    def set_start_state() -> (MoneyBalance, dict):
+        money_balance: MoneyBalance = MoneyBalance(550)
+        available_ingredients: dict = {'water': 400,
+                                       'milk': 540,
+                                       'coffee_beans': 120,
+                                       'disposable_cups': 9}
+        return money_balance, available_ingredients
+  learner_created: true
+feedback_link: https://hyperskill.org/learn/step/5794#comment
 status: Unchecked
 record: -1
